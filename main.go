@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello")
+	fmt.Println("Hello,world")
 	r := gin.New()
 	r.Use(gin.Recovery())
 
