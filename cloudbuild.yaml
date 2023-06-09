@@ -14,7 +14,7 @@ steps:
   args: ['push', 'gcr.io/${PROJECT_ID}/testgo:latest']
 - name: ubuntu
   entrypoint: /bin/bash
-  args: ["-c", "sed -i 's/%v/$(cat IMAGE_TAG)/g' kube/thai-test.yaml"]
+  args: ["-c", "IMAGE_TAG=$(cat IMAGE_TAG); sed -i 's/%v/$IMAGE_TAG/g' kube/thai-test.yaml"]
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'kube/thai-test.yaml']
   env:
