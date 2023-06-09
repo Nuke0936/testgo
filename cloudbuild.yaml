@@ -7,4 +7,4 @@ steps:
     - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'
     - 'CLOUDSDK_CONTAINER_CLUSTER=thai-test-slot-cluster-1'
 options:
-  logging: NONE
+  logging: CLOUD_LOGGING_ONLY
