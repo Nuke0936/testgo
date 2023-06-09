@@ -31,7 +31,7 @@ spec:
             fieldRef:
               fieldPath: spec.nodeName
         - name: GIN_MODE
-          value: release
+          value: debug
         - name: TZ
           value: Asia/Taipei
         - name: database
@@ -42,7 +42,7 @@ spec:
           value: "%v"
         - name: run
           value: "1"
-         livenessProbe:
+        livenessProbe:
           httpGet:
             path: /
             port: 8888
