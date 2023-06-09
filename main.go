@@ -32,6 +32,10 @@ func main() {
 		c.JSON(http.StatusOK, "pong")
 	})
 
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, "ping")
+	})
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, "success")
 	})
