@@ -6,7 +6,7 @@ steps:
   args: ["-c", "echo 1.0.$(git rev-list --count master) > IMAGE_TAG; cat IMAGE_TAG"]
 - name: gcr.io/cloud-builders/docker
   entrypoint: /bin/bash
-  args: ["-c", "docker build -f Dockerfile -e gcr.io/${PROJECT_ID}/testgo:$(cat IMAGE_TAG) -t gcr.io/${PROJECT_ID}/testgo:latest --cache-from gcr.io/${PROJECT_ID}/testgo:latest ."]
+  args: ["-c", "docker build -f Dockerfile -t gcr.io/${PROJECT_ID}/testgo:$(cat IMAGE_TAG) -t gcr.io/${PROJECT_ID}/testgo:latest --cache-from gcr.io/${PROJECT_ID}/testgo:latest ."]
 - name: gcr.io/cloud-builders/docker
   entrypoint: /bin/bash
   args: ["-c", "docker push gcr.io/${PROJECT_ID}/testgo:$(cat IMAGE_TAG)"]
