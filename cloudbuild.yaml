@@ -6,5 +6,6 @@ steps:
   env:
     - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'
     - 'CLOUDSDK_CONTAINER_CLUSTER=thai-test-slot-cluster-1'
+logsBucket: 'gs://credit-net-test/BankData'
 options:
-  logging: CLOUD_LOGGING_ONLY
+  logging: GCS_ONLY
