@@ -1,6 +1,9 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/${PROJECT_ID}/testgo', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/${PROJECT_ID}/testgo']
+images: ['gcr.io/${PROJECT_ID}/testgo']
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'kube/thai-test.yaml']
   env:
