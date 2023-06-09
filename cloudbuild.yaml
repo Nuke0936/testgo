@@ -3,6 +3,8 @@ steps:
   args: ['build', '-t', 'gcr.io/${PROJECT_ID}/testgo', '.']
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'kube/thai-test.yaml']
+  options:
+    logging: NONE
   env:
     - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'
     - 'CLOUDSDK_CONTAINER_CLUSTER=thai-test-slot-cluster-1'
