@@ -1,14 +1,25 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/${PROJECT_ID}/testgo', '.']
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/${PROJECT_ID}/testgo']
+- name: gcr.io/cloud-builders/git
+  args: ["fetch", "--unshallow"]
+- name: gcr.io/cloud-builders/git
+  entrypoint: /bin/bash
+  args: ["-c", "echo 1.0.$(git rev-list --count ${BRANCH_NAME}) > IMAGE_TAG"]
+- name: gcr.io/cloud-builders/docker
+  entrypoint: /bin/bash
+  args: ["-c", "docker build -f Dockerfile -e gcr.io/${PROJECT_ID}/testgo:$(cat IMAGE_TAG) -t gcr.io/${PROJECT_ID}/testgo:latest --cache-from gcr.io/${PROJECT_ID}/testgo:latest ."]
+- name: gcr.io/cloud-builders/docker
+  entrypoint: /bin/bash
+  args: ["-c", "docker push gcr.io/${PROJECT_ID}/testgo:$(cat IMAGE_TAG)"]
+- name: gcr.io/cloud-builders/docker
+  args: ['push', 'gcr.io/${PROJECT_ID}/testgo:latest']
+- name: ubuntu
+  entrypoint: /bin/bash
+  args: ["-c", "sed -i 's/%v/$(cat IMAGE_TAG)/g' /kube/thai-test.yaml"]
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'kube/thai-test.yaml']
   env:
     - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'
     - 'CLOUDSDK_CONTAINER_CLUSTER=thai-test-slot-cluster-1'
-images: ['gcr.io/${PROJECT_ID}/testgo']
 logsBucket: 'gs://credit-net-test/BankData'
 options:
   logging: GCS_ONLY
