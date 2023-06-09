@@ -23,7 +23,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: testgo
-        image: gcr.io/winbet-thai/testgo:1.0.%v
+        image: gcr.io/winbet-thai/testgo:latest
         imagePullPolicy: Always
         env:
         - name: NodeName
